@@ -272,7 +272,7 @@ body {
 }
 
 #rc-reading-timer-bar {
-  height: 4px;
+  height: 0px;
   background: #eeeeee;
   flex-shrink: 0;
 }
