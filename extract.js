@@ -6,6 +6,19 @@ const path = require('path');
 const splits = ['train', 'dev', 'test'];
 const difficulties = ['middle', 'high'];
 
+// ─── NEW CLEANING FUNCTION ────────────────────────────────────────────────
+function cleanText(text) {
+  if (!text) return "";
+  return text
+    // 1. Fix spacing before punctuation (e.g., "word . " -> "word.")
+    .replace(/\s+([.,!?;:])/g, '$1')
+    // 2. Fix spacing after punctuation (ensure one space after)
+    .replace(/([.,!?;:])([A-Za-z])/g, '$1 $2')
+    // 3. Remove excessive newlines/tabs and replace with single spaces
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function compileDataset(difficulty) {
   let compiledData = [];
   console.log(`\nStarting extraction for: ${difficulty}...`);
@@ -13,7 +26,6 @@ function compileDataset(difficulty) {
   splits.forEach(split => {
     const dirPath = path.join(__dirname, 'RACE', split, difficulty);
     
-    // Check if the folder exists before trying to read it
     if (!fs.existsSync(dirPath)) {
       console.log(`⚠️ Folder not found, skipping: ${dirPath}`);
       return;
@@ -27,8 +39,15 @@ function compileDataset(difficulty) {
       const content = fs.readFileSync(filePath, 'utf-8');
       
       try {
-        // The RACE .txt files are actually valid JSON inside!
         const parsed = JSON.parse(content);
+        
+        // ─── APPLY CLEANING HERE ──────────────────────────────────────────
+        parsed.article = cleanText(parsed.article);
+        if (parsed.questions) {
+            parsed.questions = parsed.questions.map(q => cleanText(q));
+        }
+        // ──────────────────────────────────────────────────────────────────
+        
         compiledData.push(parsed);
       } catch(e) {
         console.error(`❌ Error parsing JSON in file: ${filePath}`);
@@ -36,7 +55,6 @@ function compileDataset(difficulty) {
     });
   });
 
-  // Save everything into one massive JSON file
   const outputPath = path.join(__dirname, `race_${difficulty}.json`);
   fs.writeFileSync(outputPath, JSON.stringify(compiledData));
   console.log(`✅ Successfully saved ${compiledData.length} articles to ${outputPath}`);

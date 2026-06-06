@@ -87,7 +87,7 @@ function launchRC(data) {
   readingPhase.style.display  = 'flex';
   questionPhase.style.display = 'none';
   resultsPhase.style.display  = 'none';
-
+  
   overlay.classList.add('active');
 
   let activeInterval = null;
