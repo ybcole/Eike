@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Typography Menu</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="menu-container">
+
+  <!-- RSVP -->
+  <div class="menu-item active" id="rsvp-item">
+    RSVP
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="option-label">WPM: <input type="number" id="wpm-input" value="250" min="50" max="1000" step="50" /></span>
+        <span class="option-label">CHUNKS: <input type="number" id="chunks-input" value="1" min="1" max="5" /></span>
+        <span class="option-label">TEXT: <span id="text-status">None</span></span>
+      </div>
+      <button class="start-btn" id="start-btn">Start →</button>
+    </div>
+  </div>
+
+  <!-- READING COMPREHENSION -->
+  <div class="menu-item">
+    READING COMPREHENSION
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="diff-label">DIFFICULTY:</span>
+        <div class="diff-group">
+          <button class="diff-btn selected" data-diff="middle">MIDDLE</button>
+          <button class="diff-btn" data-diff="high">HIGH</button>
+        </div>
+        <span class="option-label" style="margin-left:2vw;">TIMER:
+          <input type="number" id="rc-timer-input" value="60" min="0" max="3600" step="10" />
+          <span class="unit-label">s</span>
+        </span>
+      </div>
+      <button class="start-btn" id="rc-start-btn">Start →</button>
+    </div>
+  </div>
+
+  <!-- SEQUENCE MAPPING -->
+  <div class="menu-item">
+    SEQUENCE MAPPING
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="option-label">LENGTH: <input type="number" id="sm-length-input" value="6" min="3" max="12" /></span>
+        <span class="option-label">SPEED:
+          <select id="sm-speed-input" class="option-select">
+            <option value="slow">SLOW</option>
+            <option value="normal" selected>NORMAL</option>
+            <option value="fast">FAST</option>
+          </select>
+        </span>
+      </div>
+      <button class="start-btn" id="sm-start-btn">Start →</button>
+    </div>
+  </div>
+
+  <!-- FLASH ARITHMETIC -->
+  <div class="menu-item">
+    FLASH ARITHMETIC
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="option-label">OPS:
+          <select id="fa-ops-input" class="option-select">
+            <option value="mixed" selected>MIXED</option>
+            <option value="add">+ ONLY</option>
+            <option value="sub">− ONLY</option>
+            <option value="mul">× ONLY</option>
+          </select>
+        </span>
+        <span class="option-label">ROUNDS: <input type="number" id="fa-rounds-input" value="10" min="5" max="30" /></span>
+      </div>
+      <button class="start-btn" id="fa-start-btn">Start →</button>
+    </div>
+  </div>
+
+  <!-- REASONING -->
+  <div class="menu-item">
+    REASONING
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="option-label">TYPE:
+          <select id="rn-type-input" class="option-select">
+            <option value="analogies" selected>ANALOGIES</option>
+            <option value="syllogisms">SYLLOGISMS</option>
+            <option value="patterns">PATTERNS</option>
+          </select>
+        </span>
+        <span class="option-label">ROUNDS: <input type="number" id="rn-rounds-input" value="8" min="3" max="20" /></span>
+      </div>
+      <button class="start-btn" id="rn-start-btn">Start →</button>
+    </div>
+  </div>
+
+  <!-- MEMORY RECALL -->
+  <div class="menu-item">
+    MEMORY RECALL
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="option-label">ITEMS: <input type="number" id="mr-items-input" value="7" min="3" max="15" /></span>
+        <span class="option-label">STUDY:
+          <input type="number" id="mr-study-input" value="10" min="3" max="60" />
+          <span class="unit-label">s</span>
+        </span>
+      </div>
+      <button class="start-btn" id="mr-start-btn">Start →</button>
+    </div>
+  </div>
+
+  <!-- ARTICULATION -->
+  <div class="menu-item">
+    ARTICULATION
+    <div class="menu-expand">
+      <div class="expand-options">
+        <span class="option-label">MODE:
+          <select id="ar-mode-input" class="option-select">
+            <option value="tongue-twisters" selected>TONGUE TWISTERS</option>
+            <option value="minimal-pairs">MINIMAL PAIRS</option>
+            <option value="sentences">SENTENCES</option>
+          </select>
+        </span>
+        <span class="option-label">ROUNDS: <input type="number" id="ar-rounds-input" value="5" min="3" max="15" /></span>
+      </div>
+      <button class="start-btn" id="ar-start-btn">Start →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- RSVP overlay -->
+<div id="rsvp-overlay">
+  <div id="rsvp-word"></div>
+</div>
+
+<!-- READING COMPREHENSION overlay -->
+<div id="rc-overlay">
+  <div id="rc-header">
+    <span id="rc-header-title">Reading Comprehension</span>
+    <div id="rc-header-center">
+      <span id="rc-phase-label"></span>
+      <span id="rc-progress"></span>
+    </div>
+    <button id="rc-close">✕ CLOSE</button>
+  </div>
+  <div id="rc-reading-phase">
+    <div id="rc-reading-timer-bar"><div id="rc-reading-timer-fill"></div></div>
+    <div id="rc-reading-timer-text"></div>
+    <div id="rc-article-wrap">
+      <div class="rc-pane-label">Passage</div>
+      <div id="rc-article"></div>
+    </div>
+  </div>
+  <div id="rc-question-phase">
+    <div id="rc-q-timer-bar"><div id="rc-q-timer-fill"></div></div>
+    <div id="rc-q-area"></div>
+  </div>
+  <div id="rc-results-phase">
+    <div id="rc-final-score"></div>
+    <div id="rc-answers-review"></div>
+  </div>
+</div>
+
+<!-- SEQUENCE MAPPING overlay -->
+<div id="sm-overlay" class="test-overlay">
+  <div class="test-header">
+    <span class="test-header-title">Sequence Mapping</span>
+    <div class="test-header-center">
+      <span class="test-phase-label" id="sm-phase-label"></span>
+      <span class="test-progress" id="sm-progress"></span>
+    </div>
+    <button class="test-close" id="sm-close">✕ CLOSE</button>
+  </div>
+  <div class="test-body" id="sm-body"></div>
+</div>
+
+<!-- FLASH ARITHMETIC overlay -->
+<div id="fa-overlay" class="test-overlay">
+  <div class="test-header">
+    <span class="test-header-title">Flash Arithmetic</span>
+    <div class="test-header-center">
+      <span class="test-phase-label" id="fa-phase-label"></span>
+      <span class="test-progress" id="fa-progress"></span>
+    </div>
+    <button class="test-close" id="fa-close">✕ CLOSE</button>
+  </div>
+  <div class="test-body" id="fa-body"></div>
+</div>
+
+<!-- REASONING overlay -->
+<div id="rn-overlay" class="test-overlay">
+  <div class="test-header">
+    <span class="test-header-title">Reasoning</span>
+    <div class="test-header-center">
+      <span class="test-phase-label" id="rn-phase-label"></span>
+      <span class="test-progress" id="rn-progress"></span>
+    </div>
+    <button class="test-close" id="rn-close">✕ CLOSE</button>
+  </div>
+  <div class="test-body" id="rn-body"></div>
+</div>
+
+<!-- MEMORY RECALL overlay -->
+<div id="mr-overlay" class="test-overlay">
+  <div class="test-header">
+    <span class="test-header-title">Memory Recall</span>
+    <div class="test-header-center">
+      <span class="test-phase-label" id="mr-phase-label"></span>
+      <span class="test-progress" id="mr-progress"></span>
+    </div>
+    <button class="test-close" id="mr-close">✕ CLOSE</button>
+  </div>
+  <div class="test-body" id="mr-body"></div>
+</div>
+
+<!-- ARTICULATION overlay -->
+<div id="ar-overlay" class="test-overlay">
+  <div class="test-header">
+    <span class="test-header-title">Articulation</span>
+    <div class="test-header-center">
+      <span class="test-phase-label" id="ar-phase-label"></span>
+      <span class="test-progress" id="ar-progress"></span>
+    </div>
+    <button class="test-close" id="ar-close">✕ CLOSE</button>
+  </div>
+  <div class="test-body" id="ar-body"></div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/rsvp.js"></script>
+<script src="js/rc.js"></script>
+<script src="js/sequence-mapping.js"></script>
+<script src="js/flash-arithmetic.js"></script>
+<script src="js/reasoning.js"></script>
+<script src="js/memory-recall.js"></script>
+<script src="js/articulation.js"></script>
+</body>
+</html>
