@@ -1,3 +1,5 @@
+/* ─── GENERAL SYSTEM STYLES ────────────────────────────────────────────── */
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +13,29 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+/* Custom Scrollbars */
+#rc-article-wrap::-webkit-scrollbar,
+#rc-q-area::-webkit-scrollbar,
+#rc-answers-review::-webkit-scrollbar,
+.test-body::-webkit-scrollbar {
+  width: 4px;
+}
+#rc-article-wrap::-webkit-scrollbar-track,
+#rc-q-area::-webkit-scrollbar-track,
+#rc-answers-review::-webkit-scrollbar-track,
+.test-body::-webkit-scrollbar-track {
+  background: #f8f8f8;
+}
+#rc-article-wrap::-webkit-scrollbar-thumb,
+#rc-q-area::-webkit-scrollbar-thumb,
+#rc-answers-review::-webkit-scrollbar-thumb,
+.test-body::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 2px;
+}
+
+/* ─── MAIN MENU SYSTEM ─────────────────────────────────────────────────── */
 
 .menu-container {
   width: 100%;
@@ -42,24 +67,8 @@ body {
   padding-left: 7vw;
 }
 
-/* Expand panel */
-.menu-expand {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.35s ease, opacity 0.2s ease, padding 0.35s ease;
-  padding: 0 5vw;
-}
-
-.menu-item.open.active .menu-expand {
-  max-height: 120px;
-  opacity: 1;
-  padding: 1.5vh 5vw 2.5vh 0;
-}
-
+/* Expand Panels (General & Reading Comprehension) */
+.menu-expand,
 .rc-expand {
   display: flex;
   align-items: center;
@@ -71,12 +80,14 @@ body {
   padding: 0 5vw;
 }
 
+.menu-item.open.active .menu-expand,
 .menu-item.open.active .rc-expand {
   max-height: 120px;
   opacity: 1;
   padding: 1.5vh 5vw 2.5vh 0;
 }
 
+/* Controls & Inputs */
 .expand-options {
   display: flex;
   gap: 3vw;
@@ -102,7 +113,8 @@ body {
   color: #666666 !important;
 }
 
-.option-label input {
+.option-label input[type="text"],
+.option-label input[type="number"] {
   background: transparent;
   border: none;
   border-bottom: 2px solid #aaaaaa;
@@ -114,8 +126,11 @@ body {
   text-align: center;
 }
 
-#rc-timer-input { width: 4vw; }
+#rc-timer-input { 
+  width: 4vw; 
+}
 
+/* Remove Numeric Input Spin Buttons */
 .option-label input[type="number"] {
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -125,6 +140,23 @@ body {
 .option-label input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.option-select {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #aaaaaa;
+  color: #ffffff;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.6vw;
+  outline: none;
+  cursor: pointer;
+  padding: 0 0.3vw;
+}
+
+.option-select option {
+  background: #000000;
+  color: #ffffff;
 }
 
 .start-btn {
@@ -144,6 +176,7 @@ body {
   color: #000000;
 }
 
+/* Difficulty Selector Buttons */
 .diff-label {
   font-family: 'Archivo Black', sans-serif;
   font-size: 1.6vw;
@@ -172,7 +205,7 @@ body {
 .diff-btn:hover { border-color: #aaaaaa; color: #cccccc; }
 .diff-btn.selected { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,0.08); }
 
-/* ─── RSVP OVERLAY (inverted) ───────────────────────────────────────────── */
+/* ─── RSVP OVERLAY ──────────────────────────────────────────────────────── */
 
 #rsvp-overlay {
   display: none;
@@ -184,7 +217,9 @@ body {
   justify-content: center;
 }
 
-#rsvp-overlay.active { display: flex; }
+#rsvp-overlay.active { 
+  display: flex; 
+}
 
 #rsvp-word {
   font-family: 'Archivo Black', sans-serif;
@@ -195,325 +230,7 @@ body {
   min-width: 20vw;
 }
 
-/* ─── RC OVERLAY (inverted: white bg, black text) ───────────────────────── */
-
-#rc-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #ffffff;
-  z-index: 999;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-#rc-overlay.active { display: flex; }
-
-#rc-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2.5vh 4vw 2vh;
-  border-bottom: 2px solid #e8e8e8;
-  flex-shrink: 0;
-}
-
-#rc-header-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1.4vw;
-  color: #000000;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-#rc-header-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3vh;
-}
-
-#rc-phase-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.75vw;
-  color: #aaaaaa;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-#rc-progress {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1.4vw;
-  color: #000000;
-  letter-spacing: 0.05em;
-}
-
-#rc-close {
-  background: transparent;
-  border: 2px solid #cccccc;
-  color: #999999;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1vw;
-  padding: 0.4vh 1.4vw;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  transition: all 0.2s ease;
-}
-
-#rc-close:hover { border-color: #000000; color: #000000; }
-
-/* ─── PHASE 1: READING ──────────────────────────────────────────────────── */
-
-#rc-reading-phase {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-}
-
-#rc-reading-timer-bar {
-  height: 0px;
-  background: #eeeeee;
-  flex-shrink: 0;
-}
-
-#rc-reading-timer-fill {
-  height: 100%;
-  background: #000000;
-  width: 100%;
-}
-
-#rc-reading-timer-text {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1vw;
-  color: #aaaaaa;
-  letter-spacing: 0.1em;
-  text-align: right;
-  padding: 0.8vh 3vw 0;
-  flex-shrink: 0;
-}
-
-#rc-article-wrap {
-  flex: 1;
-  overflow-y: auto;
-  padding: 3vh 6vw 4vh;
-}
-
-#rc-article-wrap::-webkit-scrollbar { width: 4px; }
-#rc-article-wrap::-webkit-scrollbar-track { background: #f8f8f8; }
-#rc-article-wrap::-webkit-scrollbar-thumb { background: #cccccc; border-radius: 2px; }
-
-.rc-pane-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.8vw;
-  color: #cccccc;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 2vh;
-}
-
-#rc-article {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.15vw;
-  line-height: 1.9;
-  color: #222222;
-  white-space: pre-wrap;
-  max-width: 72ch;
-}
-
-/* ─── PHASE 2: QUESTIONS ────────────────────────────────────────────────── */
-
-#rc-question-phase {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-}
-
-#rc-q-timer-bar {
-  height: 6px;
-  background: #eeeeee;
-  flex-shrink: 0;
-}
-
-#rc-q-timer-fill {
-  height: 100%;
-  background: #000000;
-  width: 100%;
-  transition: background 0.3s ease;
-}
-
-#rc-q-timer-fill.urgent { background: #e53e3e; }
-
-#rc-q-area {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4vh 10vw;
-  gap: 2.5vh;
-}
-
-#rc-q-area::-webkit-scrollbar { width: 4px; }
-#rc-q-area::-webkit-scrollbar-track { background: #f8f8f8; }
-#rc-q-area::-webkit-scrollbar-thumb { background: #cccccc; border-radius: 2px; }
-
-.rc-q-text {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1.8vw;
-  color: #000000;
-  line-height: 1.35;
-  margin-bottom: 1vh;
-}
-
-.rc-q-num { color: #cccccc; margin-right: 0.5vw; }
-
-.rc-opts {
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-}
-
-.rc-opt-btn {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5vw;
-  background: transparent;
-  border: 1.5px solid #e0e0e0;
-  padding: 1.4vh 2vw;
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.15s ease, background 0.15s ease;
-  width: 100%;
-}
-
-.rc-opt-btn:hover {
-  border-color: #000000;
-  background: rgba(0,0,0,0.03);
-}
-
-.rc-opt-btn.chosen {
-  border-color: #000000;
-  background: rgba(0,0,0,0.05);
-}
-
-.rc-opt-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1vw;
-  color: #bbbbbb;
-  flex-shrink: 0;
-  min-width: 1.4vw;
-  padding-top: 0.15em;
-}
-
-.rc-opt-text {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.1vw;
-  color: #333333;
-  line-height: 1.5;
-}
-
-.rc-opt-btn.chosen .rc-opt-label { color: #000000; }
-.rc-opt-btn.chosen .rc-opt-text  { color: #000000; }
-.rc-opt-btn:disabled { cursor: default; }
-
-/* ─── PHASE 3: RESULTS ──────────────────────────────────────────────────── */
-
-#rc-results-phase {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-}
-
-#rc-final-score {
-  display: flex;
-  align-items: baseline;
-  gap: 2vw;
-  padding: 3vh 6vw 2.5vh;
-  border-bottom: 2px solid #eeeeee;
-  flex-shrink: 0;
-}
-
-.rc-score {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 5vw;
-  color: #000000;
-  line-height: 1;
-}
-
-.rc-score-denom {
-  font-size: 2.5vw;
-  color: #cccccc;
-}
-
-.rc-score-pct {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 2vw;
-  color: #aaaaaa;
-  letter-spacing: 0.05em;
-}
-
-#rc-answers-review {
-  flex: 1;
-  overflow-y: auto;
-  padding: 2vh 6vw 4vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vh;
-}
-
-#rc-answers-review::-webkit-scrollbar { width: 4px; }
-#rc-answers-review::-webkit-scrollbar-track { background: #f8f8f8; }
-#rc-answers-review::-webkit-scrollbar-thumb { background: #cccccc; border-radius: 2px; }
-
-.rc-review-block {
-  padding: 1.5vh 2vw;
-  border-left: 4px solid #eeeeee;
-}
-
-.rc-review-block.review-correct { border-left-color: #38a169; }
-.rc-review-block.review-wrong   { border-left-color: #e53e3e; }
-
-.review-q {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.95vw;
-  color: #333333;
-  margin-bottom: 0.6vh;
-  line-height: 1.4;
-}
-
-.review-row {
-  display: flex;
-  gap: 2vw;
-  align-items: baseline;
-  flex-wrap: wrap;
-}
-
-.review-yours {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.85vw;
-  letter-spacing: 0.05em;
-}
-
-.review-yours.right      { color: #38a169; }
-.review-yours.wrong-label { color: #e53e3e; }
-
-.review-correct-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.85vw;
-  color: #38a169;
-  letter-spacing: 0.05em;
-}
-
-.review-opt-text {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 0.9vw;
-  color: #888888;
-}
-
-/* ─── GENERAL TEST OVERLAYS ────────────────────────────────────────────── */
+/* ─── GENERAL TEST OVERLAYS (Flash Arithmetic, etc.) ────────────────────── */
 
 .test-overlay {
   display: none;
@@ -529,14 +246,11 @@ body {
   display: flex;
 }
 
-/* ─── TEST OVERLAY HEADER (Reuse logic for all) ────────────────────────── */
-
 .test-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 2.5vh 4vw 2vh;
-  border-bottom: 2px solid #e8e8e8;
   flex-shrink: 0;
 }
 
@@ -553,6 +267,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.3vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .test-phase-label {
@@ -580,92 +296,318 @@ body {
   cursor: pointer;
   letter-spacing: 0.05em;
   transition: all 0.2s ease;
+  margin-left: auto;
 }
 
-.test-close:hover { border-color: #000000; color: #000000; }
+.test-close:hover { 
+  border-color: #000000; 
+  color: #000000; 
+}
 
 .test-body {
   flex: 1;
-  padding: 4vh 6vw;
-  overflow-y: auto;
-}
-
-/* ─── Typography & Centering ─────────────────────────────────────────────── */
-
-#rc-article {
-  text-align: justify;
-  line-height: 1.8;
-  letter-spacing: 0.3px;
-  font-family: Georgia, 'Times New Roman', serif; /* Better punctuation rendering */
-  font-size: 1.1rem;
-  max-width: 750px; /* Forces the passage to the middle */
-  margin: 0 auto;
-  padding: 30px 20px;
-  color: #000;
-}
-
-/* ─── Top Center Timers ──────────────────────────────────────────────────── */
-
-#rc-reading-phase, #rc-question-phase {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the content and timer */
-  width: 100%;
+  overflow-y: auto;
+  padding: 4vh 6vw;
+  min-height: 0;
 }
 
-.rc-timer-wrapper {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  font-family: monospace; /* Monospace keeps the numbers from shifting */
+/* ─── READING COMPREHENSION (RC) OVERLAY ────────────────────────────────── */
+
+#rc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 999;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Hide the old animated line bars permanently */
-#rc-reading-timer-fill, 
-#rc-q-timer-fill, 
-.timer-bar-container {
-  display: none !important; 
+#rc-overlay.active { 
+  display: flex; 
 }
 
-/* ─── Strict Black & White Results ───────────────────────────────────────── */
+#rc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5vh 4vw 2vh;
+  flex-shrink: 0;
+}
 
-.rc-review-block {
-  border: 1px solid #000;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: #fff; /* Pure white background */
-  color: #000;
-  max-width: 800px;
+#rc-header-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.4vw;
+  color: #000000;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#rc-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3vh;
   margin-left: auto;
   margin-right: auto;
 }
 
-.review-q {
+#rc-phase-label {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.75vw;
+  color: #aaaaaa;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+#rc-progress {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.4vw;
+  color: #000000;
+  letter-spacing: 0.05em;
+}
+
+#rc-close {
+  background: transparent;
+  border: 2px solid #cccccc;
+  color: #999999;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1vw;
+  padding: 0.4vh 1.4vw;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+#rc-close:hover { 
+  border-color: #000000; 
+  color: #000000; 
+}
+
+/* RC Phase 1: Reading Layout */
+#rc-reading-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+#rc-reading-timer-bar,
+#rc-reading-timer-fill,
+#rc-q-timer-bar,
+#rc-q-timer-fill,
+.timer-bar-container {
+  display: none !important;
+}
+
+#rc-reading-timer-text {
+  font-family: monospace;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 15px;
+  color: #000000;
+  text-align: center;
+  padding: 1.5vh 0 0;
+  flex-shrink: 0;
+}
+
+#rc-article-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 3vh 6vw 4vh;
+  width: 100%;
+}
+
+#rc-article {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  letter-spacing: 0.3px;
+  text-align: justify;
+  color: #000000;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* RC Phase 2: Questions Layout */
+#rc-question-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+#rc-q-area {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4vh 10vw;
+  gap: 2.5vh;
+  width: 100%;
+}
+
+.rc-timer-wrapper {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+.rc-q-text {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.8vw;
+  color: #000000;
+  line-height: 1.35;
+  margin-bottom: 1vh;
+}
+
+.rc-q-num { 
+  color: #cccccc; 
+  margin-right: 0.5vw; 
+}
+
+.rc-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.rc-opt-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5vw;
+  background: transparent;
+  border: 1.5px solid #e0e0e0;
+  padding: 1.4vh 2vw;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  width: 100%;
+}
+
+.rc-opt-btn:hover { border-color: #000000; background: rgba(0,0,0,0.03); }
+.rc-opt-btn.chosen { border-color: #000000; background: rgba(0,0,0,0.05); }
+.rc-opt-btn:disabled { cursor: default; }
+
+.rc-opt-label {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1vw;
+  color: #bbbbbb;
+  flex-shrink: 0;
+  min-width: 1.4vw;
+  padding-top: 0.15em;
+}
+
+.rc-opt-text {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1vw;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.rc-opt-btn.chosen .rc-opt-label,
+.rc-opt-btn.chosen .rc-opt-text { 
+  color: #000000; 
+}
+
+/* RC Phase 3: Results & Reviews */
+#rc-results-phase {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+#rc-final-score {
+  display: flex;
+  align-items: baseline;
+  gap: 2vw;
+  padding: 3vh 6vw 2.5vh;
+  border-bottom: 2px solid #eeeeee;
+  flex-shrink: 0;
+}
+
+.rc-score {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 5vw;
+  color: #000000;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.rc-score-pct {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 2vw;
+  color: #000000;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+#rc-answers-review {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2vh 6vw 4vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.rc-review-block {
+  border: 1px solid #000000;
+  padding: 20px;
+  margin-bottom: 0;
+  background-color: #ffffff;
+  color: #000000;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.review-correct { border: 2px solid #000000; }
+.review-wrong   { border: 1px dashed #000000; }
+
+.review-q {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.95vw;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 12px;
   line-height: 1.5;
 }
 
 .review-row {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   font-family: monospace;
+  font-size: 0.85vw;
 }
 
-/* Remove all green/red styling and rely on borders/text instead */
-.review-correct { border: 2px solid #000; }
-.review-wrong { border: 1px dashed #000; }
-
-.review-yours.right::after { content: ' [CORRECT]'; font-weight: bold; }
-.review-yours.wrong-label::after { content: ' [INCORRECT]'; }
+.review-yours { 
+  color: #000000; 
+}
+.review-yours.right::after { 
+  content: ' [CORRECT]'; 
+  font-weight: bold; 
+}
+.review-yours.wrong-label::after { 
+  content: ' [INCORRECT]'; 
+}
 
 .review-correct-label {
+  color: #000000;
   text-decoration: underline;
 }
 
-.rc-score, .rc-score-pct {
-  color: #000;
-  font-weight: bold;
-}
