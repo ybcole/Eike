@@ -88,9 +88,6 @@ function launchRC(data) {
   questionPhase.style.display = 'none';
   resultsPhase.style.display  = 'none';
 
-  phaseLabel.textContent = 'READ';
-  progressEl.textContent = `${questions.length} QUESTION${questions.length !== 1 ? 'S' : ''}`;
-
   overlay.classList.add('active');
 
   let activeInterval = null;
