@@ -1,4 +1,4 @@
-/* ─── GENERAL SYSTEM STYLES ────────────────────────────────────────────── */
+/* ─── RESET & BASE ──────────────────────────────────────────────────────── */
 
 * {
   margin: 0;
@@ -14,28 +14,19 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Scrollbars */
-#rc-article-wrap::-webkit-scrollbar,
-#rc-q-area::-webkit-scrollbar,
-#rc-answers-review::-webkit-scrollbar,
-.test-body::-webkit-scrollbar {
-  width: 4px;
+/* ─── SCROLLBARS ────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 3px;
 }
-#rc-article-wrap::-webkit-scrollbar-track,
-#rc-q-area::-webkit-scrollbar-track,
-#rc-answers-review::-webkit-scrollbar-track,
-.test-body::-webkit-scrollbar-track {
-  background: #f8f8f8;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-#rc-article-wrap::-webkit-scrollbar-thumb,
-#rc-q-area::-webkit-scrollbar-thumb,
-#rc-answers-review::-webkit-scrollbar-thumb,
-.test-body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: #cccccc;
-  border-radius: 2px;
 }
 
-/* ─── MAIN MENU SYSTEM ─────────────────────────────────────────────────── */
+/* ─── MAIN MENU ─────────────────────────────────────────────────────────── */
 
 .menu-container {
   width: 100%;
@@ -67,7 +58,8 @@ body {
   padding-left: 7vw;
 }
 
-/* Expand Panels (General & Reading Comprehension) */
+/* ─── EXPAND PANELS ─────────────────────────────────────────────────────── */
+
 .menu-expand,
 .rc-expand {
   display: flex;
@@ -87,7 +79,8 @@ body {
   padding: 1.5vh 5vw 2.5vh 0;
 }
 
-/* Controls & Inputs */
+/* ─── EXPAND CONTROLS ───────────────────────────────────────────────────── */
+
 .expand-options {
   display: flex;
   gap: 3vw;
@@ -126,11 +119,6 @@ body {
   text-align: center;
 }
 
-#rc-timer-input { 
-  width: 4vw; 
-}
-
-/* Remove Numeric Input Spin Buttons */
 .option-label input[type="number"] {
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -169,6 +157,7 @@ body {
   cursor: pointer;
   letter-spacing: 0.05em;
   transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
 }
 
 .start-btn:hover {
@@ -176,7 +165,8 @@ body {
   color: #000000;
 }
 
-/* Difficulty Selector Buttons */
+/* ─── DIFFICULTY SELECTOR ───────────────────────────────────────────────── */
+
 .diff-label {
   font-family: 'Archivo Black', sans-serif;
   font-size: 1.6vw;
@@ -217,8 +207,8 @@ body {
   justify-content: center;
 }
 
-#rsvp-overlay.active { 
-  display: flex; 
+#rsvp-overlay.active {
+  display: flex;
 }
 
 #rsvp-word {
@@ -230,7 +220,7 @@ body {
   min-width: 20vw;
 }
 
-/* ─── GENERAL TEST OVERLAYS (Flash Arithmetic, etc.) ────────────────────── */
+/* ─── GENERAL TEST OVERLAYS ─────────────────────────────────────────────── */
 
 .test-overlay {
   display: none;
@@ -252,13 +242,14 @@ body {
   justify-content: space-between;
   padding: 2.5vh 4vw 2vh;
   flex-shrink: 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .test-header-title {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 1.4vw;
-  color: #000000;
-  letter-spacing: 0.1em;
+  font-size: 1.1vw;
+  color: #cccccc;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
@@ -266,16 +257,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3vh;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 0.2vh;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .test-phase-label {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 0.75vw;
+  font-size: 0.7vw;
   color: #aaaaaa;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
 }
 
@@ -288,20 +280,19 @@ body {
 
 .test-close {
   background: transparent;
-  border: 2px solid #cccccc;
-  color: #999999;
+  border: none;
+  color: #aaaaaa;
   font-family: 'Archivo Black', sans-serif;
-  font-size: 1vw;
-  padding: 0.4vh 1.4vw;
+  font-size: 0.9vw;
+  padding: 0.4vh 0;
   cursor: pointer;
-  letter-spacing: 0.05em;
-  transition: all 0.2s ease;
+  letter-spacing: 0.1em;
+  transition: color 0.2s ease;
   margin-left: auto;
 }
 
-.test-close:hover { 
-  border-color: #000000; 
-  color: #000000; 
+.test-close:hover {
+  color: #000000;
 }
 
 .test-body {
@@ -313,7 +304,7 @@ body {
   min-height: 0;
 }
 
-/* ─── READING COMPREHENSION (RC) OVERLAY ────────────────────────────────── */
+/* ─── READING COMPREHENSION OVERLAY ─────────────────────────────────────── */
 
 #rc-overlay {
   display: none;
@@ -325,8 +316,8 @@ body {
   overflow: hidden;
 }
 
-#rc-overlay.active { 
-  display: flex; 
+#rc-overlay.active {
+  display: flex;
 }
 
 #rc-header {
@@ -335,13 +326,15 @@ body {
   justify-content: space-between;
   padding: 2.5vh 4vw 2vh;
   flex-shrink: 0;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
 }
 
 #rc-header-title {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 1.4vw;
-  color: #000000;
-  letter-spacing: 0.1em;
+  font-size: 1.1vw;
+  color: #cccccc;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
@@ -349,16 +342,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3vh;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 0.2vh;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #rc-phase-label {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 0.75vw;
+  font-size: 0.7vw;
   color: #aaaaaa;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
 }
 
@@ -369,25 +363,7 @@ body {
   letter-spacing: 0.05em;
 }
 
-#rc-close {
-  background: transparent;
-  border: 2px solid #cccccc;
-  color: #999999;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1vw;
-  padding: 0.4vh 1.4vw;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  transition: all 0.2s ease;
-  margin-left: auto;
-}
-
-#rc-close:hover { 
-  border-color: #000000; 
-  color: #000000; 
-}
-
-/* RC Phase 1: Reading Layout */
+/* RC Reading Phase */
 #rc-reading-phase {
   display: flex;
   flex-direction: column;
@@ -397,22 +373,14 @@ body {
   width: 100%;
 }
 
-#rc-reading-timer-bar,
-#rc-reading-timer-fill,
-#rc-q-timer-bar,
-#rc-q-timer-fill,
-.timer-bar-container {
-  display: none !important;
-}
-
 #rc-reading-timer-text {
-  font-family: monospace;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #000000;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1rem;
+  color: #aaaaaa;
   text-align: center;
   padding: 1.5vh 0 0;
   flex-shrink: 0;
+  letter-spacing: 0.1em;
 }
 
 #rc-article-wrap {
@@ -424,17 +392,17 @@ body {
 
 #rc-article {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  letter-spacing: 0.3px;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  letter-spacing: 0.2px;
   text-align: justify;
   color: #000000;
-  max-width: 750px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 20px 0 40px;
 }
 
-/* RC Phase 2: Questions Layout */
+/* RC Question Phase */
 #rc-question-phase {
   display: flex;
   flex-direction: column;
@@ -455,73 +423,73 @@ body {
   width: 100%;
 }
 
-.rc-timer-wrapper {
-  font-family: monospace;
-  font-size: 1.5rem;
-  font-weight: bold;
+.rc-timer-text {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1rem;
+  color: #aaaaaa;
   text-align: center;
-  margin-bottom: 20px;
-  color: #000000;
+  letter-spacing: 0.1em;
+  margin-bottom: 2vh;
 }
 
 .rc-q-text {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 1.8vw;
+  font-size: 1.6vw;
   color: #000000;
-  line-height: 1.35;
-  margin-bottom: 1vh;
+  line-height: 1.4;
+  margin-bottom: 2vh;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.rc-q-num { 
-  color: #cccccc; 
-  margin-right: 0.5vw; 
+.rc-q-num {
+  color: #cccccc;
+  margin-right: 0.5vw;
 }
 
 .rc-opts {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
-}
-
-.rc-opt-btn {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5vw;
-  background: transparent;
-  border: 1.5px solid #e0e0e0;
-  padding: 1.4vh 2vw;
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  gap: 0.8vh;
+  max-width: 750px;
+  margin: 0 auto;
   width: 100%;
 }
 
-.rc-opt-btn:hover { border-color: #000000; background: rgba(0,0,0,0.03); }
-.rc-opt-btn.chosen { border-color: #000000; background: rgba(0,0,0,0.05); }
-.rc-opt-btn:disabled { cursor: default; }
+.rc-opt-btn {
+  background: transparent;
+  border: none;
+  padding: 1.2vh 0;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5vw;
+  width: 100%;
+  transition: opacity 0.15s ease;
+}
+
+.rc-opt-btn:hover { opacity: 0.6; }
+.rc-opt-btn:disabled { cursor: default; opacity: 1; }
 
 .rc-opt-label {
   font-family: 'Archivo Black', sans-serif;
   font-size: 1vw;
-  color: #bbbbbb;
+  color: #cccccc;
   flex-shrink: 0;
-  min-width: 1.4vw;
-  padding-top: 0.15em;
+  min-width: 1.8vw;
+  padding-top: 0.1em;
 }
 
 .rc-opt-text {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.1vw;
   color: #333333;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-.rc-opt-btn.chosen .rc-opt-label,
-.rc-opt-btn.chosen .rc-opt-text { 
-  color: #000000; 
-}
-
-/* RC Phase 3: Results & Reviews */
+/* RC Results Phase */
 #rc-results-phase {
   display: flex;
   flex-direction: column;
@@ -530,11 +498,7 @@ body {
 }
 
 #rc-final-score {
-  display: flex;
-  align-items: baseline;
-  gap: 2vw;
   padding: 3vh 6vw 2.5vh;
-  border-bottom: 2px solid #eeeeee;
   flex-shrink: 0;
 }
 
@@ -542,72 +506,101 @@ body {
   font-family: 'Archivo Black', sans-serif;
   font-size: 5vw;
   color: #000000;
-  font-weight: bold;
   line-height: 1;
 }
 
 .rc-score-pct {
   font-family: 'Archivo Black', sans-serif;
   font-size: 2vw;
-  color: #000000;
-  font-weight: bold;
-  letter-spacing: 0.05em;
+  color: #aaaaaa;
+  margin-left: 1.5vw;
 }
 
 #rc-answers-review {
   flex: 1;
   overflow-y: auto;
-  padding: 2vh 6vw 4vh;
+  padding: 0 6vw 4vh;
   display: flex;
   flex-direction: column;
-  gap: 1.5vh;
+  gap: 2vh;
 }
 
 .rc-review-block {
-  border: 1px solid #000000;
-  padding: 20px;
-  margin-bottom: 0;
-  background-color: #ffffff;
-  color: #000000;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 16px 0;
+  max-width: 760px;
+  margin: 0 auto;
   width: 100%;
 }
 
-.review-correct { border: 2px solid #000000; }
-.review-wrong   { border: 1px dashed #000000; }
-
 .review-q {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 0.95vw;
-  font-weight: bold;
+  font-size: 0.9vw;
   color: #000000;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   line-height: 1.5;
 }
 
 .review-row {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-family: monospace;
-  font-size: 0.85vw;
+  gap: 4px;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.8vw;
+  color: #aaaaaa;
+  letter-spacing: 0.05em;
 }
 
-.review-yours { 
-  color: #000000; 
-}
-.review-yours.right::after { 
-  content: ' [CORRECT]'; 
-  font-weight: bold; 
-}
-.review-yours.wrong-label::after { 
-  content: ' [INCORRECT]'; 
-}
-
-.review-correct-label {
+.review-answer-correct {
   color: #000000;
-  text-decoration: underline;
 }
 
+.review-verdict {
+  color: #cccccc;
+  font-size: 0.75vw;
+  letter-spacing: 0.1em;
+}
+
+/* ─── SHARED INNER ELEMENTS ─────────────────────────────────────────────── */
+
+/* Large score display used in results */
+.result-score {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 5vw;
+  color: #000000;
+  line-height: 1;
+}
+
+.result-score-sub {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 2vw;
+  color: #aaaaaa;
+  margin-left: 1vw;
+}
+
+/* Generic action button used inside overlays */
+.action-btn {
+  background: transparent;
+  border: 2px solid #000000;
+  color: #000000;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.2vw;
+  padding: 0.6vh 2.5vw;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.action-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.action-btn.filled {
+  background: #000000;
+  color: #ffffff;
+}
+
+.action-btn.filled:hover {
+  background: transparent;
+  color: #000000;
+}

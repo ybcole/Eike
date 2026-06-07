@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heavy Typography Menu</title>
+  <title>Eike</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
 </head>
@@ -11,7 +11,7 @@
 
 <div class="menu-container">
 
-  <div class="menu-item active" id="rsvp-item">
+  <div class="menu-item" id="rsvp-item">
     RSVP
     <div class="menu-expand">
       <div class="expand-options">
@@ -45,14 +45,11 @@
     REASONING
     <div class="menu-expand">
       <div class="expand-options">
-        <span class="option-label">TYPE:
-          <select id="rn-type-input" class="option-select">
-            <option value="analogies" selected>ANALOGIES</option>
-            <option value="syllogisms">SYLLOGISMS</option>
-            <option value="patterns">PATTERNS</option>
-          </select>
-        </span>
         <span class="option-label">ROUNDS: <input type="number" id="rn-rounds-input" value="8" min="3" max="20" /></span>
+        <span class="option-label" style="margin-left:2vw;">TIMER:
+          <input type="number" id="rn-timer-input" value="30" min="5" max="300" step="5" />
+          <span class="unit-label">s</span>
+        </span>
       </div>
       <button class="start-btn" id="rn-start-btn">Start →</button>
     </div>
@@ -80,10 +77,10 @@
     <div class="menu-expand">
       <div class="expand-options">
         <span class="option-label">OPS:
-          <input type="text" id="fa-ops-input" value="+, -" style="width: 6vw; text-align: center;" />
+          <input type="text" id="fa-ops-input" value="+, -" style="width:6vw; text-align:center;" />
         </span>
         <span class="option-label">DIGITS:
-          <input type="text" id="fa-digits-input" value="1, 2" style="width: 6vw; text-align: center;" />
+          <input type="text" id="fa-digits-input" value="1, 2" style="width:6vw; text-align:center;" />
         </span>
         <span class="option-label">FLASHES: <input type="number" id="fa-flashes-input" value="3" min="2" max="10" /></span>
         <span class="option-label">SPEED:
@@ -133,22 +130,21 @@
 
 <!-- READING COMPREHENSION overlay -->
 <div id="rc-overlay">
-  <div id="rc-header" style="justify-content: flex-end;">
-    <div id="rc-header-center" style="display: none;">
+  <div id="rc-header">
+    <span id="rc-header-title">READING COMPREHENSION</span>
+    <div id="rc-header-center">
       <span id="rc-phase-label"></span>
       <span id="rc-progress"></span>
     </div>
-    <button id="rc-close">✕ CLOSE</button>
+    <button id="rc-close" class="test-close">✕ CLOSE</button>
   </div>
   <div id="rc-reading-phase">
-    <div id="rc-reading-timer-bar"><div id="rc-reading-timer-fill"></div></div>
     <div id="rc-reading-timer-text"></div>
     <div id="rc-article-wrap">
       <div id="rc-article"></div>
     </div>
   </div>
   <div id="rc-question-phase">
-    <div id="rc-q-timer-bar"><div id="rc-q-timer-fill"></div></div>
     <div id="rc-q-area"></div>
   </div>
   <div id="rc-results-phase">
@@ -160,7 +156,7 @@
 <!-- SEQUENCE MAPPING overlay -->
 <div id="sm-overlay" class="test-overlay">
   <div class="test-header">
-    <span class="test-header-title"></span>
+    <span class="test-header-title">SEQUENCE MAPPING</span>
     <div class="test-header-center">
       <span class="test-phase-label" id="sm-phase-label"></span>
       <span class="test-progress" id="sm-progress"></span>
@@ -173,7 +169,7 @@
 <!-- FLASH ARITHMETIC overlay -->
 <div id="fa-overlay" class="test-overlay">
   <div class="test-header">
-    <span class="test-header-title"></span>
+    <span class="test-header-title">FLASH ARITHMETIC</span>
     <div class="test-header-center">
       <span class="test-phase-label" id="fa-phase-label"></span>
       <span class="test-progress" id="fa-progress"></span>
@@ -186,7 +182,7 @@
 <!-- REASONING overlay -->
 <div id="rn-overlay" class="test-overlay">
   <div class="test-header">
-    <span class="test-header-title"></span>
+    <span class="test-header-title">REASONING</span>
     <div class="test-header-center">
       <span class="test-phase-label" id="rn-phase-label"></span>
       <span class="test-progress" id="rn-progress"></span>
@@ -199,7 +195,7 @@
 <!-- MEMORY RECALL overlay -->
 <div id="mr-overlay" class="test-overlay">
   <div class="test-header">
-    <span class="test-header-title"></span>
+    <span class="test-header-title">MEMORY RECALL</span>
     <div class="test-header-center">
       <span class="test-phase-label" id="mr-phase-label"></span>
       <span class="test-progress" id="mr-progress"></span>
@@ -212,7 +208,7 @@
 <!-- ARTICULATION overlay -->
 <div id="ar-overlay" class="test-overlay">
   <div class="test-header">
-    <span class="test-header-title"></span>
+    <span class="test-header-title">ARTICULATION</span>
     <div class="test-header-center">
       <span class="test-phase-label" id="ar-phase-label"></span>
       <span class="test-progress" id="ar-progress"></span>

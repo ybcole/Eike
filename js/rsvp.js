@@ -1,6 +1,9 @@
+// ========================================================================
+// ⚡ RSVP
+// ========================================================================
+
 let pastedText = null;
 
-// Capture pasted text from anywhere on the page
 document.addEventListener('paste', (e) => {
   const text = e.clipboardData.getData('text/plain').trim();
   if (text) {
@@ -10,7 +13,7 @@ document.addEventListener('paste', (e) => {
 });
 
 document.getElementById('start-btn').addEventListener('click', () => {
-  const wpm    = parseInt(document.getElementById('wpm-input').value)    || 250;
+  const wpm    = parseInt(document.getElementById('wpm-input').value) || 250;
   const chunks = parseInt(document.getElementById('chunks-input').value) || 1;
   const words  = pastedText
     ? pastedText.split(/\s+/).filter(Boolean)
@@ -20,7 +23,6 @@ document.getElementById('start-btn').addEventListener('click', () => {
   const overlay = document.getElementById('rsvp-overlay');
   const wordEl  = document.getElementById('rsvp-word');
 
-  // Build chunked array
   const chunked = [];
   for (let i = 0; i < words.length; i += chunks) {
     chunked.push(words.slice(i, i + chunks).join(' '));

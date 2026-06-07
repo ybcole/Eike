@@ -1,15 +1,14 @@
 // ========================================================================
-// ⚙️ DATASET CACHE & SETTINGS
+// 📖 READING COMPREHENSION
 // ========================================================================
-let rcDifficulty = 'middle'; 
 
-// We will store the massive dataset in memory so we only fetch it once
+let rcDifficulty = 'middle';
+
 let datasetCache = {
   middle: null,
   high: null
 };
 
-// ─── Difficulty toggle ────────────────────────────────────────────────────────
 document.querySelectorAll('.diff-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -19,7 +18,6 @@ document.querySelectorAll('.diff-btn').forEach(btn => {
   });
 });
 
-// ─── Start button → Load from compiled JSON ───────────────────────────────────
 document.getElementById('rc-start-btn').addEventListener('click', (e) => {
   e.stopPropagation();
   loadRaceFile();
@@ -28,35 +26,21 @@ document.getElementById('rc-start-btn').addEventListener('click', (e) => {
 async function loadRaceFile() {
   const fileName = `race_${rcDifficulty}.json`;
 
-  // If we haven't loaded the data yet, fetch it from our compiled file
   if (!datasetCache[rcDifficulty]) {
-    console.log(`[DEBUG] Fetching entire compiled dataset: ${fileName}...`);
     try {
-      // Look for the file in the root directory
       const res = await fetch(`./${fileName}`);
-      if (!res.ok) throw new Error("File not found");
-      
+      if (!res.ok) throw new Error('File not found');
       datasetCache[rcDifficulty] = await res.json();
-      console.log(`[SUCCESS] Loaded ${datasetCache[rcDifficulty].length} articles into memory!`);
     } catch (err) {
-      console.error(err);
-      alert(`Could not find ${fileName}.\n\nDid you run 'node extract.js' in your terminal to generate the files? Make sure you are using Live Server.`);
+      alert(`Could not find ${fileName}.\n\nMake sure you ran the data extraction step and are using Live Server.`);
       return;
     }
   }
 
-  // Pick a random article from our loaded memory cache
   const articlesArray = datasetCache[rcDifficulty];
-  const randomIndex = Math.floor(Math.random() * articlesArray.length);
-  const randomArticleData = articlesArray[randomIndex];
-
-  console.log(`[DEBUG] Launching article ID: ${randomArticleData.id}`);
-  launchRC(randomArticleData);
+  const randomIndex   = Math.floor(Math.random() * articlesArray.length);
+  launchRC(articlesArray[randomIndex]);
 }
-
-// ─── RC launcher (three-phase flow) ──────────────────────────────────────────
-
-// ─── RC launcher (Monochrome & Centered Flow) ────────────────────────────────
 
 function launchRC(data) {
   const overlay      = document.getElementById('rc-overlay');
@@ -77,17 +61,16 @@ function launchRC(data) {
   const options   = data.options;
   const answers   = data.answers;
   const readSecs  = parseInt(document.getElementById('rc-timer-input').value) || 60;
-  const Q_TIME    = 10; // seconds per question
+  const Q_TIME    = 10;
 
-  // Clean raw text formatting
-  articleEl.textContent  = data.article.replace(/\s+/g, ' ').trim();
+  articleEl.textContent   = data.article.replace(/\s+/g, ' ').trim();
   answersReview.innerHTML = '';
   finalScore.innerHTML    = '';
 
   readingPhase.style.display  = 'flex';
   questionPhase.style.display = 'none';
   resultsPhase.style.display  = 'none';
-  
+
   overlay.classList.add('active');
 
   let activeInterval = null;
@@ -96,16 +79,11 @@ function launchRC(data) {
     if (activeInterval) { clearInterval(activeInterval); activeInterval = null; }
   }
 
-  function formatTime(s) {
-    return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
-  }
-
-  // ── Phase 1: Reading countdown ──────────────────────────────────────────────
+  // ── Phase 1: Reading ──────────────────────────────────────────────────────
 
   let readRemaining = readSecs;
   readingTimerText.textContent = formatTime(readRemaining);
-  // Ensure timer is wrapped in our new centered class
-  readingTimerText.className = "rc-timer-wrapper";
+  phaseLabel.textContent = 'READ';
 
   activeInterval = setInterval(() => {
     readRemaining--;
@@ -116,7 +94,7 @@ function launchRC(data) {
     }
   }, 1000);
 
-  // ── Phase 2: Questions (one at a time, 10s each) ────────────────────────────
+  // ── Phase 2: Questions ────────────────────────────────────────────────────
 
   const userAnswers = new Array(questions.length).fill(null);
 
@@ -131,17 +109,16 @@ function launchRC(data) {
     progressEl.textContent = `${qi + 1} / ${questions.length}`;
 
     const labels = ['A', 'B', 'C', 'D'];
-    
-    // Injected a numerical timer at the top center of the question area
+
     qArea.innerHTML = `
-      <div id="rc-q-timer-text" class="rc-timer-wrapper">0:10</div>
-      <div class="rc-q-text" style="max-width: 750px; margin: 0 auto; text-align: left;">
-        <span class="rc-q-num">${qi + 1}.</span> ${questions[qi]}
+      <div class="rc-timer-text" id="rc-q-timer-text">${formatTime(Q_TIME)}</div>
+      <div class="rc-q-text">
+        <span class="rc-q-num">${qi + 1}.</span>${questions[qi]}
       </div>
-      <div class="rc-opts" style="max-width: 750px; margin: 20px auto;">
+      <div class="rc-opts">
         ${options[qi].map((opt, oi) => `
-          <button class="rc-opt-btn" data-qi="${qi}" data-oi="${oi}" style="display:block; width:100%; margin-bottom:10px; padding:15px; border:1px solid #000; background:#fff; cursor:pointer; text-align:left;">
-            <strong style="margin-right: 10px;">${labels[oi]}.</strong>
+          <button class="rc-opt-btn" data-qi="${qi}" data-oi="${oi}">
+            <span class="rc-opt-label">${labels[oi]}.</span>
             <span class="rc-opt-text">${opt}</span>
           </button>
         `).join('')}
@@ -159,11 +136,10 @@ function launchRC(data) {
 
     const qTimerText = document.getElementById('rc-q-timer-text');
     let qRemaining = Q_TIME;
-    qTimerText.textContent = formatTime(qRemaining);
 
     activeInterval = setInterval(() => {
       qRemaining--;
-      qTimerText.textContent = formatTime(qRemaining);
+      if (qTimerText) qTimerText.textContent = formatTime(qRemaining);
       if (qRemaining <= 0) {
         clearActive();
         advanceQuestion(qi);
@@ -179,14 +155,14 @@ function launchRC(data) {
     }
   }
 
-  // ── Phase 3: Results (Monochrome) ───────────────────────────────────────────
+  // ── Phase 3: Results ──────────────────────────────────────────────────────
 
   function showResults() {
-    questionPhase.style.display = 'none';
-    resultsPhase.style.display  = 'flex';
+    questionPhase.style.display  = 'none';
+    resultsPhase.style.display   = 'flex';
     resultsPhase.style.flexDirection = 'column';
-    phaseLabel.textContent      = 'RESULTS';
-    progressEl.textContent      = '';
+    phaseLabel.textContent  = 'RESULTS';
+    progressEl.textContent  = '';
 
     const labels = ['A', 'B', 'C', 'D'];
     let correct  = 0;
@@ -196,17 +172,18 @@ function launchRC(data) {
       const userIdx    = userAnswers[qi];
       if (userIdx === correctIdx) correct++;
 
-      const block       = document.createElement('div');
-      const isCorrect   = userIdx === correctIdx;
-      block.className   = `rc-review-block ${isCorrect ? 'review-correct' : 'review-wrong'}`;
-      const chosenLabel = userIdx !== null ? labels[userIdx] : '—';
-      const correctOptText = options[qi] && options[qi][correctIdx] ? options[qi][correctIdx] : '';
+      const block     = document.createElement('div');
+      block.className = 'rc-review-block';
+
+      const isCorrect     = userIdx === correctIdx;
+      const chosenLabel   = userIdx !== null ? labels[userIdx] : '—';
+      const correctOptTxt = options[qi] && options[qi][correctIdx] ? options[qi][correctIdx] : '';
 
       block.innerHTML = `
         <div class="review-q"><span class="rc-q-num">${qi + 1}.</span> ${q}</div>
         <div class="review-row">
-          <span class="review-yours ${isCorrect ? 'right' : 'wrong-label'}">Selected: ${chosenLabel}</span>
-          <span class="review-correct-label">Correct Answer: ${answers[qi]} - ${correctOptText}</span>
+          <span class="review-verdict">${isCorrect ? 'CORRECT' : 'INCORRECT'} — You chose ${chosenLabel}</span>
+          <span class="review-answer-correct">Answer: ${answers[qi]} — ${correctOptTxt}</span>
         </div>
       `;
       answersReview.appendChild(block);
@@ -214,14 +191,12 @@ function launchRC(data) {
 
     const pct = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0;
     finalScore.innerHTML = `
-      <div style="text-align:center; font-size: 2rem; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px;">
-        <span class="rc-score">${correct} / ${questions.length}</span>
-        <span class="rc-score-pct">(${pct}%)</span>
-      </div>
+      <span class="rc-score">${correct} / ${questions.length}</span>
+      <span class="rc-score-pct">${pct}%</span>
     `;
   }
 
-  // ── Close ───────────────────────────────────────────────────────────────────
+  // ── Close ─────────────────────────────────────────────────────────────────
 
   document.getElementById('rc-close').onclick = () => {
     clearActive();
