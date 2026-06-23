@@ -1,6 +1,6 @@
 # Eike
 
-Eike is a browser-based cognitive training suite. Seven modules, each targeting a different aspect of mental performance.
+Eike is a browser-based cognitive training suite built with vanilla JavaScript. Features 7 exercises: RSVP speed reader, reading comprehension, reasoning, articulation, flash arithmetic, spatial sequence mapping,  memory recall, and articulation.
 
 ---
 
